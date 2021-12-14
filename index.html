@@ -116,7 +116,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2021/12/10/Zombie-process-caused-by-training-a-DL-model/">Deep Learning in Computer Vision</a>
+      <a class="article-title" href="/2021/12/10/Zombie-process-caused-by-training-a-DL-model/">What is zombie process?</a>
     </h1>
   
 
@@ -133,8 +133,7 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Deep-Learning-applications-in-Computer-Vision"><a href="#Deep-Learning-applications-in-Computer-Vision" class="headerlink" title="Deep Learning applications in Computer Vision"></a>Deep Learning applications in Computer Vision</h2><p>많은 분들이 아시다시피 아주 간단한 이미지 분류(Classification)부터, 이미지 생성(GAN)에 이르기까지, Vision과 관련되어 사용되는 딥러닝 기술들은 정말 다양합니다.<br>다양한 기술들이 있지만, Computer Vision에 사용되는 딥러닝 기술들을 크게 9가지로 나누고, 각 주제에 해당하는 대표적인 논문들을 한 편씩 돌아가면서 소개하고자 합니다. 🙂 이번 포스팅에서는 앞으로 살펴볼 각각의 기술들에 대해 간단히 살펴보도록 하겠습니다.</p>
-<p><strong>실제로는 종료 되었는데도 계속 남아있는 프로세스</strong><br>Zombie process는 실제로는 종료된 프로세스이지만, Process Table에 여전히 남아있는 프로세스입니다. 이러한 Zombie process는 Defunct process라고도 부릅니다.</p>
+        <h2 id="Zombie-process란"><a href="#Zombie-process란" class="headerlink" title="Zombie process란?"></a>Zombie process란?</h2><p><strong>실제로는 종료 되었는데도 계속 남아있는 프로세스</strong><br>Zombie process는 실제로는 종료된 프로세스이지만, Process Table에 여전히 남아있는 프로세스입니다. 이러한 Zombie process는 Defunct process라고도 부릅니다.</p>
 <p><strong>Zombie process가 생성되는 이유</strong><br>일반적으로 프로세스는 부모 프로세스가 자식 프로세스를 실행하고, 자식 프로세스가 종료되어 부모 프로세스로부터 wait system call(e.g. waitpid)이 호출되면 Process table로부터 제거됩니다. 또한, 자식 프로세스의 실행이 종료된 이후에 부모 프로세스가 종료되면, 부모 프로세스와 함께 Process Table로부터 제거됩니다.</p>
 <p>하지만 반대로, 부모 프로세스가 자식 프로세스보다 먼저 종료되는 경우 혹은 부모 프로세스가 자식 프로세스의 종료 처리 역할을 제대로 하지 못하는 경우 Zombie process가 생성됩니다.</p>
 <p><strong>Zombie process가 문제가 되는 이유</strong><br>이렇게 Defunct process가 된 process는 같은 일부 시스템 리소스를 차지하게 됩니다. 그로인해 리소스의 용량이 꽉 차게 되면 더 이상 프로세스를 실행할 수 없는 상황이 발생할 수 있습니다. </p>
@@ -157,7 +156,7 @@
       
       
   <span class="ico-tags"></span>
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Computer-Vision/" rel="tag">Computer Vision</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Computer-Science/" rel="tag">Computer Science</a></li></ul>
 
       
     </footer>
@@ -708,7 +707,7 @@
               <div class="widget-entry-summary" style="margin: 0;">
             
 
-              <h6 style="margin: 0;"><a href="/2021/12/10/Zombie-process-caused-by-training-a-DL-model/">Deep Learning in Computer Vision</a></h6>
+              <h6 style="margin: 0;"><a href="/2021/12/10/Zombie-process-caused-by-training-a-DL-model/">What is zombie process?</a></h6>
               <span>December 10, 2021</span>
             </div>
 
@@ -786,7 +785,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computer-Vision/" rel="tag">Computer Vision</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elasticsearch/" rel="tag">Elasticsearch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kubernetes/" rel="tag">Kubernetes</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computer-Science/" rel="tag">Computer Science</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computer-Vision/" rel="tag">Computer Vision</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elasticsearch/" rel="tag">Elasticsearch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kubernetes/" rel="tag">Kubernetes</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -796,7 +795,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Computer-Vision/" style="font-size: 20px;">Computer Vision</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Elasticsearch/" style="font-size: 10px;">Elasticsearch</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Kubernetes/" style="font-size: 10px;">Kubernetes</a>
+      <a href="/tags/Computer-Science/" style="font-size: 10px;">Computer Science</a> <a href="/tags/Computer-Vision/" style="font-size: 10px;">Computer Vision</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Elasticsearch/" style="font-size: 10px;">Elasticsearch</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Kubernetes/" style="font-size: 10px;">Kubernetes</a>
     </div>
   </div>
 
