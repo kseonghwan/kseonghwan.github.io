@@ -199,8 +199,8 @@
 <p>일반적으로 RDB는 행을 기반으로 데이터를 저장합니다. 그에 반해 엘라스틱서치는 단어를 기반으로(역인덱스, Inverted Index) 저장합니다. 이로 인한 장단점은 아래와 같습니다.<br>RDB는 데이터 수정·삭제의 편의성과 속도 면에서 강점이 있지만 다양한 조건의 데이터를 검색하고 집계하는 데에는 구조적인 한계가 있습니다. 예를 들어, RDMBS에서 ‘word’라는 단어가 db에 있는지 검색을 하려고 한다면 모든 row에 ‘word’라는 단어가 있는지를 검색하려고 하기에 비효율적입니다.</p>
 <p>반면에 단어 기반으로 데이터를 저장하는 엘라스틱서치는 특정 단어가 어디에 저장되어 있는지 이미 알고 있어 모든 도큐먼트를 검색할 필요가 없습니다. row 기반 저장 구조와는 달리 단어가 저장된 row를 알고 있기 때문에 도큐먼트 개수와 상관없이 한 번의 조회로 검색을 끝낼 수 있습니다.</p>
 <p>다만 이러한 특징 때문에 수정과 삭제는 엘라스틱서치 내부적으로 굉장히 많은 리소스가 소요되는 작업입니다. 이것이 엘라스틱서치가 RDBMS를 완전히 대체할 수 없는 중요한 이유 중 하나입니다. 따라서 데이터 특성상 수정과 삭제가 많은 경우와 그렇지 않은 경우를 잘 구분해서 어떤 검색 엔진을 사용할지 선택해야합니다.</p>
-<h3 id="용어-비교"><a href="#용어-비교" class="headerlink" title="용어 비교"></a>용어 비교</h3><p>다음은 Elasticsearch와 RDB의 용어를 비교한 표이다.<br><img src="/img/es-rdbms.png" alt="용어 비교"></p>
-<p>또한, ElasticSearch는 REST API를 사용하기에 용어들이 REST API와 유사합니다. 이를 관계형 데이터베이스와 비교하여 나타내면 아래과 같습니다.<br><img src="/img/es-rdbms.png" alt="용어 비교2"></p>
+<h3 id="용어-비교"><a href="#용어-비교" class="headerlink" title="용어 비교"></a>용어 비교</h3><p>다음은 Elasticsearch와 RDB의 용어를 비교한 표이다.<br><img src="/es-rdbms.png" alt="용어 비교"></p>
+<p>또한, ElasticSearch는 REST API를 사용하기에 용어들이 REST API와 유사합니다. 이를 관계형 데이터베이스와 비교하여 나타내면 아래과 같습니다.<br><img src="/es-rdbms.png" alt="용어 비교2"></p>
 <h2 id="Elasticsearch-문법"><a href="#Elasticsearch-문법" class="headerlink" title="Elasticsearch 문법"></a>Elasticsearch 문법</h2><h3 id="인덱스-입력-조회-및-삭제-GET-PUT-DELETE"><a href="#인덱스-입력-조회-및-삭제-GET-PUT-DELETE" class="headerlink" title="인덱스 입력, 조회 및 삭제 (GET, PUT, DELETE)"></a>인덱스 입력, 조회 및 삭제 (GET, PUT, DELETE)</h3><p><strong>1. 인덱스 조회</strong><br>GET 명령어를 활용하고 ip address와 index 이름을 아래와 같이 넣어준다.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ GET http://ip-address/index-name</span><br></pre></td></tr></table></figure>
 
@@ -273,11 +273,11 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>제가 이번에 하게될 프로젝트에서는 자연어 처리 관련 딥러닝 모델을 활용하게 됩니다. 이러한 딥러닝 모델은 각각의 모델마다 사용해야하는 패키지, 서버 환경 등이 제각각이기 때문에 사용하는데 주의가 필요합니다. 딥러닝을 활용하여 서비스를 배포하기 위해서는 누구나 한번쯤 사용할법한 도커에 대해서 알아본 내용을 이번 포스팅에서 정리하고자 합니다. 우선 도커가 등장한 배경과 그리고 도커의 핵심 개념인 컨테이너와 이미지에 대해 알아보고 실제로 도커를 설치하고 컨테이너를 실행해 보도록 하겠습니다.</p>
-<h2 id="What-is-Docker"><a href="#What-is-Docker" class="headerlink" title="What is Docker?"></a>What is Docker?</h2><h3 id="도커란"><a href="#도커란" class="headerlink" title="도커란?"></a>도커란?</h3><p><img src="/img/docker-works.png" alt="도커는 컨테이너를 관리하는 플랫폼"><br>도커는 <strong>컨테이너 기반의 오픈소스 가상화 플랫폼</strong>입니다.</p>
+<h2 id="What-is-Docker"><a href="#What-is-Docker" class="headerlink" title="What is Docker?"></a>What is Docker?</h2><h3 id="도커란"><a href="#도커란" class="headerlink" title="도커란?"></a>도커란?</h3><p><img src="/docker-works.png" alt="도커는 컨테이너를 관리하는 플랫폼"><br>도커는 <strong>컨테이너 기반의 오픈소스 가상화 플랫폼</strong>입니다.</p>
 <p>컨테이너라 하면 배에 실는 네모난 화물 수송용 박스를 생각할 수 있는데 각각의 컨테이너 안에는 옷, 신발, 전자제품, 술, 과일등 다양한 화물을 넣을 수 있고 규격화되어 컨테이너선이나 트레일러등 다양한 운송수단으로 쉽게 옮길 수 있습니다.</p>
 <p>이처럼 도커에서 이야기하는 컨테이너도 다양한 프로그램, 실행환경 등을 컨테이너로 추상화하고 동일한 인터페이스를 제공하여 프로그램의 배포 및 관리를 단순하게 해줍니다. 매번 사용하는 패키지를 다시 깔거나 버전을 새로 맞추지 않아도 내가 짠 코드가 안정적으로 돌아갈 수 있도록 어디에서든 실행할 수 있습니다.</p>
 <p><strong>Docker for Mac / Docker for Windows</strong><br>도커를 맥이나 윈도우즈에 설치하려면 <a target="_blank" rel="noopener" href="https://docs.docker.com/desktop/mac/">Docker for mac</a> 또는 <a target="_blank" rel="noopener" href="https://docs.docker.com/desktop/windows/">Docker for windows</a>를 설치하면 됩니다. 파일을 다운받고 설치하고 재부팅하면 대부분 문제없이 완료됩니다.</p>
-<h3 id="컨테이너-Container"><a href="#컨테이너-Container" class="headerlink" title="컨테이너(Container)"></a>컨테이너(Container)</h3><p><img src="/img/docker-image.png" alt="Docker image"><br>도커에서 가장 중요한 개념은 컨테이너와 함께 이미지라는 개념입니다.</p>
+<h3 id="컨테이너-Container"><a href="#컨테이너-Container" class="headerlink" title="컨테이너(Container)"></a>컨테이너(Container)</h3><p><img src="/docker-image.png" alt="Docker image"><br>도커에서 가장 중요한 개념은 컨테이너와 함께 이미지라는 개념입니다.</p>
 <p>이미지는 <strong>컨테이너 실행에 필요한 파일과 설정값등을 포함하고 있는 것</strong>으로 상태값을 가지지 않고 변하지 않습니다(Immutable). 컨테이너는 이미지를 실행한 상태라고 볼 수 있고 추가되거나 변하는 값은 컨테이너에 저장됩니다. 같은 이미지에서 여러개의 컨테이너를 생성할 수 있고 컨테이너의 상태가 바뀌거나 컨테이너가 삭제되더라도 이미지는 변하지 않고 그대로 남아있습니다.</p>
 <p>예를 들어 내가 필요한 패키지를 모두 설치한 이미지를 가지고 있으면, 코드나 설정값에 약간의 변화를 준 컨테이너를 여러개 만들 수 있습니다. <a target="_blank" rel="noopener" href="https://hub.docker.com/">Docker Image Hub</a>에 가면 다양한 소프트웨어 업체 및 개인이 올려둔 도커 이미지를 확인할 수 있습니다. 유저는 자신만의 이미지를 생성하거나 도커허브에 올라와있는 이미지를 활용하여 컨테이너를 자유롭게 생성할 수 있습니다.</p>
 <h2 id="How-to-create-a-Docker-image"><a href="#How-to-create-a-Docker-image" class="headerlink" title="How to create a Docker image"></a>How to create a Docker image</h2><p>도커는 이미지를 만들기 위해 Dockerfile이라는 파일에 자체 DSLDomain-specific language언어를 이용하여 이미지 생성 과정을 적습니다. 아래에 문법에 대해 자세히 다루겠지만 아래의 샘플을 보면 그렇게 복잡하지 않다는 걸 알 수 있습니다.</p>
@@ -352,8 +352,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>이전 포스팅에서는 도커에 대해서 알아보는 시간을 가졌습니다. 금번 프로젝트에서는 여러가지 다양한 딥러닝 모델을 하나의 gpu에서 사용하기 때문에, 자원의 효율적인 사용은 무엇보다 중요합니다. 따라서 사용하게된 Kubernetes의 개념에 대해 간단히 정리해보고자 합니다.</p>
-<h2 id="What-is-Kubernetes"><a href="#What-is-Kubernetes" class="headerlink" title="What is Kubernetes?"></a>What is Kubernetes?</h2><h3 id="도커-vs-쿠버네티스"><a href="#도커-vs-쿠버네티스" class="headerlink" title="도커 vs 쿠버네티스?"></a>도커 vs 쿠버네티스?</h3><p><img src="/img/Kubernetes.png" alt="도커와 쿠버네티스의 차이점"><br>도커를 간단하게 정의해서 <strong>이미지를 컨테이너에 띄우고 실행하는 기술</strong> 이라고 하면, 쿠버네티스는 <strong>도커를 관리하는 툴</strong>이라고 할 수 있습니다. 즉, 도커는 한 개의 컨테이너를 관리하는 데에 최적의 서비스라고 한다면, 쿠버네티스는 여러 개의 컨테이너를 서비스 단위로 관리하는 서비스입니다.</p>
-<h3 id="쿠버네티스를-쓰는-경우"><a href="#쿠버네티스를-쓰는-경우" class="headerlink" title="쿠버네티스를 쓰는 경우"></a>쿠버네티스를 쓰는 경우</h3><p><img src="/img/kuber-2.png" alt="쿠버네티스 한눈에 보기"></p>
+<h2 id="What-is-Kubernetes"><a href="#What-is-Kubernetes" class="headerlink" title="What is Kubernetes?"></a>What is Kubernetes?</h2><h3 id="도커-vs-쿠버네티스"><a href="#도커-vs-쿠버네티스" class="headerlink" title="도커 vs 쿠버네티스?"></a>도커 vs 쿠버네티스?</h3><p><img src="/Kubernetes.png" alt="도커와 쿠버네티스의 차이점"><br>도커를 간단하게 정의해서 <strong>이미지를 컨테이너에 띄우고 실행하는 기술</strong> 이라고 하면, 쿠버네티스는 <strong>도커를 관리하는 툴</strong>이라고 할 수 있습니다. 즉, 도커는 한 개의 컨테이너를 관리하는 데에 최적의 서비스라고 한다면, 쿠버네티스는 여러 개의 컨테이너를 서비스 단위로 관리하는 서비스입니다.</p>
+<h3 id="쿠버네티스를-쓰는-경우"><a href="#쿠버네티스를-쓰는-경우" class="headerlink" title="쿠버네티스를 쓰는 경우"></a>쿠버네티스를 쓰는 경우</h3><p><img src="/kuber-2.png" alt="쿠버네티스 한눈에 보기"></p>
 <ul>
 <li>컨테이너의 수가 많아지면 관리와 운영에 어려움이 있습니다.</li>
 <li>쿠버네티스는 이러한 다수의 컨테이너에 대한 실행, 관리 및 조율을 하는 시스템입니다.</li>
@@ -413,15 +413,15 @@
 <h3 id="1-Image-Classification"><a href="#1-Image-Classification" class="headerlink" title="1. Image Classification"></a>1. Image Classification</h3><ul>
 <li>딥러닝을 공부하게 하면 배우는 Convolution Nueral Network(이하 CNN)가 대표적으로 적용되는 분야입니다. Classification이라는 단어 자체로 의미하듯, 0부터 9까지 숫자를 분류하는 MNIST dataset부터, 천가지 데이터를 분류하는 ImageNet까지 다양한 데이터 셋이 있습니다.</li>
 </ul>
-<p><img src="/img/cv1.png" alt="CIFAR10"></p>
+<p><img src="/cv1.png" alt="CIFAR10"></p>
 <ul>
 <li>아래의 예시처럼, 각 이미지의 특징(feature)들을 얼마나 잘 구별해 내느냐가 딥러닝 모델의 성능을 좌우한다고 할 수 있겠습니다. 대표적인 논문으로는 AlexNet, ResNet, VGG 등이 있습니다.</li>
 </ul>
-<p><img src="/img/cv2.gif" alt="Classification"></p>
+<p><img src="/cv2.gif" alt="Classification"></p>
 <h3 id="2-Object-Detection"><a href="#2-Object-Detection" class="headerlink" title="2. Object Detection"></a>2. Object Detection</h3><ul>
 <li>Classification 문제와 아래 사진과 같이 Bounding Box를 사용해서 그 물체의 위치 정보를 나타내는 Localization을 함께 할 수 있는 기술입니다.</li>
 </ul>
-<p><img src="/img/cv3.png" alt="Object Detection"></p>
+<p><img src="/cv3.png" alt="Object Detection"></p>
 <ul>
 <li>Object Detection 모델들은 크게 2-Stage Detecotr(R-CNN family)인지, 1-Stage Detector(YOLO or SSD family)인지를 기준으로 이해할 수 있습니다.</li>
 <li>Object가 있는 것으로 예상되는 위치에 대한 Regional Proposal을 받고, 그 다음 해당 영역이 어떤 Object인지 Classification을 수행하는 2단계로 모델이 작동한다면 2-Stage Detector이고, Regional Proposal과 Classfication이 동시에 계산된다면 1-Stage Detector라고 이해할 수 있습니다.</li>
@@ -431,7 +431,7 @@
 <h3 id="3-Image-Segmentation"><a href="#3-Image-Segmentation" class="headerlink" title="3. Image Segmentation"></a>3. Image Segmentation</h3><ul>
 <li>Segmentaion의 개념은 아래 사진으로 한 번에 이해하실 수 있을 것 같습니다. Detection을 하는 것에서 한 발더 나아가, Object의 경계까지 표시할 수 있는 기술입니다.</li>
 </ul>
-<p><img src="/img/cv4.jpeg" alt="Image Segmentation"></p>
+<p><img src="/cv4.jpeg" alt="Image Segmentation"></p>
 <ul>
 <li><p>Semantic Segmentation과 Instance Segmentation의 차이점은 아래와 같습니다. 같은 이미지이 대해, 각자의 Object를 별개의 개체로 Segmentaion을 수행한다면 Instacne Segmentation이라고 지칭하며, Class만 구별하여 인식한다면 Semantic Segmentation이라고 지칭합니다.</p>
 </li>
@@ -441,7 +441,7 @@
 <h3 id="4-Object-Tracking"><a href="#4-Object-Tracking" class="headerlink" title="4. Object Tracking"></a>4. Object Tracking</h3><ul>
 <li>Object Tracking은 Object Detection 기술을 응용, 발전시킨 좋은 예시입니다. Object Detection을 실시간으로 하면서, 맨 처음 Frame에서 Detection이 된 Object에게 ID를 부여하고, 다음 Frame에서는 해당 ID의 Object를 무엇으로 판별해야하는지에 대한 문제입니다.</li>
 </ul>
-<p><img src="/img/cv5.gif" alt="Pedestrian Tracking"></p>
+<p><img src="/cv5.gif" alt="Pedestrian Tracking"></p>
 <ul>
 <li>Object Tracking이 가능해지는 기본적인 원리는 다음과 같습니다.</li>
 </ul>
@@ -457,7 +457,7 @@
 </ul>
 <h3 id="5-Pose-Estimation"><a href="#5-Pose-Estimation" class="headerlink" title="5. Pose Estimation"></a>5. Pose Estimation</h3><p>Pose Estimation은 Classification과 Localization의 또 다른 응용이라고 할 수 있겠습니다.<br>• Dataset마다 Pose를 구성하는 개수가 달라질 순 있지만, 아래와 같이 사람의 각 관절을 14군데로만 정한다고 했을 때, 해당하는 위치<br>  [(x_1, y_1), (x​<em>2,y​<em>2​​) \sim (x</em>{13}, y</em>{13}), (x_{​14}​​,y_{​14}​​)]</p>
 <p>들을 예측하고, 실제 값과 생기는 각각의 Regression Loss를 합하여 Back Propagation을 하는 방법으로 모델을 학습시킨다고 이해할 수 있습니다.</p>
-<p><img src="/img/cv6.png" alt="Pose Estimation"></p>
+<p><img src="/cv6.png" alt="Pose Estimation"></p>
 <ul>
 <li>한 사진에 두 명이상이 있다고 했을 때에 모든 사람의 Pose를 파악을 해야하는 Multi-Pose estimation은 Single Pose Estimation보다 더 어려운 문제입니다.</li>
 <li>Multi-Pose 문제를 해결하는 방법으로는, 먼저 사람이라는 객체를 먼저 파악을 한 뒤에 각각의 사람에 대해 Pose Estimation을 수행하는 Top-Down approach와, 이미지 내 모든 사람들의 모든 관절들에 대해 먼저 예측을 실시하고 인접하거나 관련있는 포인트들끼리 grouping을 실시하는 Bottom-Up approach가 있습니다.</li>
@@ -465,10 +465,10 @@
 <h3 id="6-Image-with-GAN"><a href="#6-Image-with-GAN" class="headerlink" title="6. Image with GAN"></a>6. Image with GAN</h3><ul>
 <li>Generative Adversarial Network(이하 GAN)는 단어의 뜻을 하나씩 살펴보면 이해할 수 있습니다. 첫 번째 단어인 Generative. 즉, 생성한다는 말입니다. 아래의 사진은 실제로 존재하지 않는 사람들의 얼굴을 GAN을 사용해서 ‘만들어 낸’ 사람의 얼굴입니다.</li>
 </ul>
-<p><img src="/img/cv7.png" alt="GAN으로 만든 사람 얼굴"></p>
+<p><img src="/cv7.png" alt="GAN으로 만든 사람 얼굴"></p>
 <p>• 이런 일이 어떻게 가능할까요? 쉽게 말하면, 이미지를 구성하는 픽셀들의 분포를 모델이 학습한다고 할 수 있습니다. 32×32 크기의 이미지가 있다고 했을때, RGB를 고려해, 총<br>  [32\times32\times3=3162]</p>
 <p>개의 픽셀이 어떻게 ‘분포’되어 조합이 됐길래 그러한 이미지를 생성할 수 있는지를 모델은 학습합니다. 그것이 가능하게 하는 아래와 같은 학습 방법을 ‘Adversarial’하다고 표현합니다.</p>
-<p><img src="/img/cv8.png" alt="생성자와 구분자"></p>
+<p><img src="/cv8.png" alt="생성자와 구분자"></p>
 <ul>
 <li><p>많이 들어보셨겠지만, GAN을 설명하는 가장 유명한 예시로 위조지폐범과 경찰을 듭니다. 위조지폐범은 실제 돈과 자신이 만든 위조지폐와 감별을 할 수 없을 정도로 정교하게 만들어야만이 구분자(Discriminator)인 경찰을 속일 수 있게 되는 것이고, 경찰은 반대로 생성자(Generator)인 도둑이 만든 위조지폐를 더 잘 구분하기 위해 또 학습을 하게 됩니다. 즉, GAN은 두 네트워크가 서로 대립적(Adversarial)하게 학습을 하는 형태를 가지고 있습니다.</p>
 </li>
@@ -478,7 +478,7 @@
 <h3 id="7-Image-Captioning"><a href="#7-Image-Captioning" class="headerlink" title="7. Image Captioning"></a>7. Image Captioning</h3><ul>
 <li>Image Captioning은 아래와 같이 사진을 보고 그 사진을 설명할 수 있는 기술을 뜻합니다.</li>
 </ul>
-<p><img src="/img/cv9.png" alt="Image Captioning"></p>
+<p><img src="/cv9.png" alt="Image Captioning"></p>
 <ul>
 <li><p>CNN으로 이미지의 특징을 먼저 알아내고, 그 정보들을 RNN을 사용해서 서술하는. 어찌보면, 이미지 정보라는 언어를 사람의 언어로 통역을 시켜주는 기술이라고 볼 수 있겠습니다.</p>
 </li>

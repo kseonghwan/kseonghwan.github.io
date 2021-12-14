@@ -18,14 +18,14 @@
 <meta property="og:site_name" content="Sunghwan&#39;s blog">
 <meta property="og:description" content="금번 프로젝트에서 사용하는 검색엔진은 Elasticsearch 입니다. 2016년 무렵부터 Elasticsearch가 검색엔진 랭킹에서 1위를 차지할만큼 검색엔진 분야에서 지배적인 위치에 있기도 합니다. 이번 포스팅에서는 기본 개념과 특징에 대해서 알아보겠습니다. What is Elasticsearch?Elasticsearch vs RDB개발자들이 흔히 아">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://kseonghwan.github.io/img/es-rdbms.png">
-<meta property="og:image" content="http://kseonghwan.github.io/img/es-rdbms.png">
+<meta property="og:image" content="http://kseonghwan.github.io/es-rdbms.png">
+<meta property="og:image" content="http://kseonghwan.github.io/es-rdbms.png">
 <meta property="article:published_time" content="2021-10-21T11:11:34.000Z">
-<meta property="article:modified_time" content="2021-12-12T15:12:08.857Z">
+<meta property="article:modified_time" content="2021-12-14T15:02:03.892Z">
 <meta property="article:author" content="Sunghwan Kim">
 <meta property="article:tag" content="Elasticsearch">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://kseonghwan.github.io/img/es-rdbms.png">
+<meta name="twitter:image" content="http://kseonghwan.github.io/es-rdbms.png">
   
     <link rel="alternate" href="/atom.xml" title="Sunghwan&#39;s blog" type="application/atom+xml">
   
@@ -145,8 +145,8 @@
 <p>일반적으로 RDB는 행을 기반으로 데이터를 저장합니다. 그에 반해 엘라스틱서치는 단어를 기반으로(역인덱스, Inverted Index) 저장합니다. 이로 인한 장단점은 아래와 같습니다.<br>RDB는 데이터 수정·삭제의 편의성과 속도 면에서 강점이 있지만 다양한 조건의 데이터를 검색하고 집계하는 데에는 구조적인 한계가 있습니다. 예를 들어, RDMBS에서 ‘word’라는 단어가 db에 있는지 검색을 하려고 한다면 모든 row에 ‘word’라는 단어가 있는지를 검색하려고 하기에 비효율적입니다.</p>
 <p>반면에 단어 기반으로 데이터를 저장하는 엘라스틱서치는 특정 단어가 어디에 저장되어 있는지 이미 알고 있어 모든 도큐먼트를 검색할 필요가 없습니다. row 기반 저장 구조와는 달리 단어가 저장된 row를 알고 있기 때문에 도큐먼트 개수와 상관없이 한 번의 조회로 검색을 끝낼 수 있습니다.</p>
 <p>다만 이러한 특징 때문에 수정과 삭제는 엘라스틱서치 내부적으로 굉장히 많은 리소스가 소요되는 작업입니다. 이것이 엘라스틱서치가 RDBMS를 완전히 대체할 수 없는 중요한 이유 중 하나입니다. 따라서 데이터 특성상 수정과 삭제가 많은 경우와 그렇지 않은 경우를 잘 구분해서 어떤 검색 엔진을 사용할지 선택해야합니다.</p>
-<h3 id="용어-비교"><a href="#용어-비교" class="headerlink" title="용어 비교"></a>용어 비교</h3><p>다음은 Elasticsearch와 RDB의 용어를 비교한 표이다.<br><img src="/img/es-rdbms.png" alt="용어 비교"></p>
-<p>또한, ElasticSearch는 REST API를 사용하기에 용어들이 REST API와 유사합니다. 이를 관계형 데이터베이스와 비교하여 나타내면 아래과 같습니다.<br><img src="/img/es-rdbms.png" alt="용어 비교2"></p>
+<h3 id="용어-비교"><a href="#용어-비교" class="headerlink" title="용어 비교"></a>용어 비교</h3><p>다음은 Elasticsearch와 RDB의 용어를 비교한 표이다.<br><img src="/es-rdbms.png" alt="용어 비교"></p>
+<p>또한, ElasticSearch는 REST API를 사용하기에 용어들이 REST API와 유사합니다. 이를 관계형 데이터베이스와 비교하여 나타내면 아래과 같습니다.<br><img src="/es-rdbms.png" alt="용어 비교2"></p>
 <h2 id="Elasticsearch-문법"><a href="#Elasticsearch-문법" class="headerlink" title="Elasticsearch 문법"></a>Elasticsearch 문법</h2><h3 id="인덱스-입력-조회-및-삭제-GET-PUT-DELETE"><a href="#인덱스-입력-조회-및-삭제-GET-PUT-DELETE" class="headerlink" title="인덱스 입력, 조회 및 삭제 (GET, PUT, DELETE)"></a>인덱스 입력, 조회 및 삭제 (GET, PUT, DELETE)</h3><p><strong>1. 인덱스 조회</strong><br>GET 명령어를 활용하고 ip address와 index 이름을 아래와 같이 넣어준다.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ GET http://ip-address/index-name</span><br></pre></td></tr></table></figure>
 
