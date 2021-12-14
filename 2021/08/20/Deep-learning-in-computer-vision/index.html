@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Deep Learning in Computer Vision | Sunghwan&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="Computer Vision" />
+  
+  
+  
+  
+  <meta name="description" content="Deep Learning applications in Computer Vision 많은 분들이 아시다시피 아주 간단한 이미지 분류(Classification)부터, 이미지 생성(GAN)에 이르기까지, Vision과 관련되어 사용되는 딥러닝 기술들은 정말 다양합니다. 다양한 기술들이 있지만, Computer Vision에 사용되는 딥러닝 기술들을 크게 9가지">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Deep Learning in Computer Vision">
+<meta property="og:url" content="http://kseonghwan.github.io/2021/08/20/Deep-learning-in-computer-vision/index.html">
+<meta property="og:site_name" content="Sunghwan&#39;s blog">
+<meta property="og:description" content="Deep Learning applications in Computer Vision 많은 분들이 아시다시피 아주 간단한 이미지 분류(Classification)부터, 이미지 생성(GAN)에 이르기까지, Vision과 관련되어 사용되는 딥러닝 기술들은 정말 다양합니다. 다양한 기술들이 있지만, Computer Vision에 사용되는 딥러닝 기술들을 크게 9가지">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://kseonghwan.github.io/img/cv1.png">
+<meta property="og:image" content="http://kseonghwan.github.io/img/cv2.gif">
+<meta property="og:image" content="http://kseonghwan.github.io/img/cv3.png">
+<meta property="og:image" content="http://kseonghwan.github.io/img/cv4.jpeg">
+<meta property="og:image" content="http://kseonghwan.github.io/img/cv5.gif">
+<meta property="og:image" content="http://kseonghwan.github.io/img/cv6.png">
+<meta property="og:image" content="http://kseonghwan.github.io/img/cv7.png">
+<meta property="og:image" content="http://kseonghwan.github.io/img/cv8.png">
+<meta property="og:image" content="http://kseonghwan.github.io/img/cv9.png">
+<meta property="article:published_time" content="2021-08-20T14:31:55.000Z">
+<meta property="article:modified_time" content="2021-12-13T14:38:31.214Z">
+<meta property="article:author" content="Sunghwan Kim">
+<meta property="article:tag" content="Computer Vision">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://kseonghwan.github.io/img/cv1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Sunghwan&#39;s blog" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+    
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+<script src="/js/jquery-3.1.1.min.js"></script>
+
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+  <link rel="stylesheet" href="/css/fashion.css" >
+  <link rel="stylesheet" href="/css/glyphs.css" >
+
+<meta name="generator" content="Hexo 5.0.2"></head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="Sunghwan&#39;s blog" rel="home"> Sunghwan&#39;s blog </a>
+            
+          </h1>
+          
+          
+            <div class="site-description">From Data Analytics to Personal Stories</div>
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/">Home</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/archives">Archives</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/categories">Categories</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/tags">Tags</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/about">About</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-Deep-learning-in-computer-vision" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Deep Learning in Computer Vision
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2021/08/20/Deep-learning-in-computer-vision/" class="article-date">
+	  <time datetime="2021-08-20T14:31:55.000Z" itemprop="datePublished">August 20, 2021</time>
+	</a>
+
+       
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Deep-Learning-applications-in-Computer-Vision"><a href="#Deep-Learning-applications-in-Computer-Vision" class="headerlink" title="Deep Learning applications in Computer Vision"></a>Deep Learning applications in Computer Vision</h2><ul>
+<li>많은 분들이 아시다시피 아주 간단한 이미지 분류(Classification)부터, 이미지 생성(GAN)에 이르기까지, Vision과 관련되어 사용되는 딥러닝 기술들은 정말 다양합니다.</li>
+<li>다양한 기술들이 있지만, Computer Vision에 사용되는 딥러닝 기술들을 크게 9가지로 나누고, 각 주제에 해당하는 대표적인 논문들을 한 편씩 돌아가면서 소개하고자 합니다. 🙂 이번 포스팅에서는 앞으로 살펴볼 각각의 기술들에 대해 간단히 살펴보도록 하겠습니다.</li>
+</ul>
+<h3 id="1-Image-Classification"><a href="#1-Image-Classification" class="headerlink" title="1. Image Classification"></a>1. Image Classification</h3><ul>
+<li>딥러닝을 공부하게 하면 배우는 Convolution Nueral Network(이하 CNN)가 대표적으로 적용되는 분야입니다. Classification이라는 단어 자체로 의미하듯, 0부터 9까지 숫자를 분류하는 MNIST dataset부터, 천가지 데이터를 분류하는 ImageNet까지 다양한 데이터 셋이 있습니다.</li>
+</ul>
+<p><img src="/img/cv1.png" alt="CIFAR10"></p>
+<ul>
+<li>아래의 예시처럼, 각 이미지의 특징(feature)들을 얼마나 잘 구별해 내느냐가 딥러닝 모델의 성능을 좌우한다고 할 수 있겠습니다. 대표적인 논문으로는 AlexNet, ResNet, VGG 등이 있습니다.</li>
+</ul>
+<p><img src="/img/cv2.gif" alt="Classification"></p>
+<h3 id="2-Object-Detection"><a href="#2-Object-Detection" class="headerlink" title="2. Object Detection"></a>2. Object Detection</h3><ul>
+<li>Classification 문제와 아래 사진과 같이 Bounding Box를 사용해서 그 물체의 위치 정보를 나타내는 Localization을 함께 할 수 있는 기술입니다.</li>
+</ul>
+<p><img src="/img/cv3.png" alt="Object Detection"></p>
+<ul>
+<li>Object Detection 모델들은 크게 2-Stage Detecotr(R-CNN family)인지, 1-Stage Detector(YOLO or SSD family)인지를 기준으로 이해할 수 있습니다.</li>
+<li>Object가 있는 것으로 예상되는 위치에 대한 Regional Proposal을 받고, 그 다음 해당 영역이 어떤 Object인지 Classification을 수행하는 2단계로 모델이 작동한다면 2-Stage Detector이고, Regional Proposal과 Classfication이 동시에 계산된다면 1-Stage Detector라고 이해할 수 있습니다.</li>
+<li>1-Stage Detector들은 실시간 처리에 빠른 성능을 보이지만 성능이 조금 2-Stage Detector들에 비해 떨어집니다. 예상하실 수 있겠지만 2-Stage Detector의 장점과 단점은 그 반대로, 속도는 조금 더 느리지만 Localization에 대한 상대적 정확도가 높다는 것입니다.</li>
+<li>유명한 Dataset으로는 PASCAL VOC, Open Images 등이 있습니다.</li>
+</ul>
+<h3 id="3-Image-Segmentation"><a href="#3-Image-Segmentation" class="headerlink" title="3. Image Segmentation"></a>3. Image Segmentation</h3><ul>
+<li>Segmentaion의 개념은 아래 사진으로 한 번에 이해하실 수 있을 것 같습니다. Detection을 하는 것에서 한 발더 나아가, Object의 경계까지 표시할 수 있는 기술입니다.</li>
+</ul>
+<p><img src="/img/cv4.jpeg" alt="Image Segmentation"></p>
+<ul>
+<li><p>Semantic Segmentation과 Instance Segmentation의 차이점은 아래와 같습니다. 같은 이미지이 대해, 각자의 Object를 별개의 개체로 Segmentaion을 수행한다면 Instacne Segmentation이라고 지칭하며, Class만 구별하여 인식한다면 Semantic Segmentation이라고 지칭합니다.</p>
+</li>
+<li><p>유명한 모델로는 FCN, UNet, SegNet 등이 있고, 유명한 데이터셋으로는 COCO, PASCAL VOC 등이 있습니다.</p>
+</li>
+</ul>
+<h3 id="4-Object-Tracking"><a href="#4-Object-Tracking" class="headerlink" title="4. Object Tracking"></a>4. Object Tracking</h3><ul>
+<li>Object Tracking은 Object Detection 기술을 응용, 발전시킨 좋은 예시입니다. Object Detection을 실시간으로 하면서, 맨 처음 Frame에서 Detection이 된 Object에게 ID를 부여하고, 다음 Frame에서는 해당 ID의 Object를 무엇으로 판별해야하는지에 대한 문제입니다.</li>
+</ul>
+<p><img src="/img/cv5.gif" alt="Pedestrian Tracking"></p>
+<ul>
+<li>Object Tracking이 가능해지는 기본적인 원리는 다음과 같습니다.</li>
+</ul>
+<p><strong>Centroid based ID assignment</strong></p>
+<ol>
+<li>Object Detection을 먼저 실시하고, Bouning Box마다 ID를 부여한다.</li>
+<li>다음 frame의 bbox들 중, 현재 bbox의 중심점(centoids)과 가장 가까운 bbox 중심점을 가진 bbox에 현재 bbox의 ID를 부여한다.</li>
+</ol>
+<ul>
+<li>위와 같은 경우, 두 사물이 겹치거나 Cross하며 지나가게 되는 경우에는 ID가 서로 바꿔치기가 될 가능성이 있습니다. 그래서, Kalman Filter 와 같은 방법을 사용하여, 각 bbox의 중심점이 어느 속도와 방향성을 가지고 움직이던 중이었는지를 기준으로 구별하여서 고유한 ID를 유지할 수 있게 해줍니다.</li>
+<li>거기에 각각의 bbox가 가지고 있는 feature가 각 bbox안 이미지의 고유성을 더 설명해주는 식으로 ID의 Unique함을 더 유지할 수 있게 해준다면 더욱 Tracking이 잘 되겠죠?</li>
+<li>유명한 논문으로는, SORT(Simple Online and Realtime Tracking), Deep SORT 등이 있고, Dataset으로는 MOT challenge dataset, Market 1501, MARS 등이 있습니다.</li>
+</ul>
+<h3 id="5-Pose-Estimation"><a href="#5-Pose-Estimation" class="headerlink" title="5. Pose Estimation"></a>5. Pose Estimation</h3><p>Pose Estimation은 Classification과 Localization의 또 다른 응용이라고 할 수 있겠습니다.<br>• Dataset마다 Pose를 구성하는 개수가 달라질 순 있지만, 아래와 같이 사람의 각 관절을 14군데로만 정한다고 했을 때, 해당하는 위치<br>  [(x_1, y_1), (x​<em>2,y​<em>2​​) \sim (x</em>{13}, y</em>{13}), (x_{​14}​​,y_{​14}​​)]</p>
+<p>들을 예측하고, 실제 값과 생기는 각각의 Regression Loss를 합하여 Back Propagation을 하는 방법으로 모델을 학습시킨다고 이해할 수 있습니다.</p>
+<p><img src="/img/cv6.png" alt="Pose Estimation"></p>
+<ul>
+<li>한 사진에 두 명이상이 있다고 했을 때에 모든 사람의 Pose를 파악을 해야하는 Multi-Pose estimation은 Single Pose Estimation보다 더 어려운 문제입니다.</li>
+<li>Multi-Pose 문제를 해결하는 방법으로는, 먼저 사람이라는 객체를 먼저 파악을 한 뒤에 각각의 사람에 대해 Pose Estimation을 수행하는 Top-Down approach와, 이미지 내 모든 사람들의 모든 관절들에 대해 먼저 예측을 실시하고 인접하거나 관련있는 포인트들끼리 grouping을 실시하는 Bottom-Up approach가 있습니다.</li>
+</ul>
+<h3 id="6-Image-with-GAN"><a href="#6-Image-with-GAN" class="headerlink" title="6. Image with GAN"></a>6. Image with GAN</h3><ul>
+<li>Generative Adversarial Network(이하 GAN)는 단어의 뜻을 하나씩 살펴보면 이해할 수 있습니다. 첫 번째 단어인 Generative. 즉, 생성한다는 말입니다. 아래의 사진은 실제로 존재하지 않는 사람들의 얼굴을 GAN을 사용해서 ‘만들어 낸’ 사람의 얼굴입니다.</li>
+</ul>
+<p><img src="/img/cv7.png" alt="GAN으로 만든 사람 얼굴"></p>
+<p>• 이런 일이 어떻게 가능할까요? 쉽게 말하면, 이미지를 구성하는 픽셀들의 분포를 모델이 학습한다고 할 수 있습니다. 32×32 크기의 이미지가 있다고 했을때, RGB를 고려해, 총<br>  [32\times32\times3=3162]</p>
+<p>개의 픽셀이 어떻게 ‘분포’되어 조합이 됐길래 그러한 이미지를 생성할 수 있는지를 모델은 학습합니다. 그것이 가능하게 하는 아래와 같은 학습 방법을 ‘Adversarial’하다고 표현합니다.</p>
+<p><img src="/img/cv8.png" alt="생성자와 구분자"></p>
+<ul>
+<li><p>많이 들어보셨겠지만, GAN을 설명하는 가장 유명한 예시로 위조지폐범과 경찰을 듭니다. 위조지폐범은 실제 돈과 자신이 만든 위조지폐와 감별을 할 수 없을 정도로 정교하게 만들어야만이 구분자(Discriminator)인 경찰을 속일 수 있게 되는 것이고, 경찰은 반대로 생성자(Generator)인 도둑이 만든 위조지폐를 더 잘 구분하기 위해 또 학습을 하게 됩니다. 즉, GAN은 두 네트워크가 서로 대립적(Adversarial)하게 학습을 하는 형태를 가지고 있습니다.</p>
+</li>
+<li><p>유명한 모델로는 DCGAN, cGAN, WGAN, BEGAN, CycleGAN, DiscoGAN, StarGAN 등이 있고, 학습 데이터로는 fashionMNIST, Flickr-Faces-HQ Dataset (FFHQ) 등이 있습니다.</p>
+</li>
+</ul>
+<h3 id="7-Image-Captioning"><a href="#7-Image-Captioning" class="headerlink" title="7. Image Captioning"></a>7. Image Captioning</h3><ul>
+<li>Image Captioning은 아래와 같이 사진을 보고 그 사진을 설명할 수 있는 기술을 뜻합니다.</li>
+</ul>
+<p><img src="/img/cv9.png" alt="Image Captioning"></p>
+<ul>
+<li><p>CNN으로 이미지의 특징을 먼저 알아내고, 그 정보들을 RNN을 사용해서 서술하는. 어찌보면, 이미지 정보라는 언어를 사람의 언어로 통역을 시켜주는 기술이라고 볼 수 있겠습니다.</p>
+</li>
+<li><p>논문으로는 ‘Show and Tell’, ‘Show, attend and Tell’, ‘DenseCap’ 등이 있고, Dataset으로는 Visual Genome (VG) region captions, MS COCO, Flickr8k and Flickr30k 등이 있습니다.</p>
+</li>
+<li><p>위와 같이 Computer Vision과 관련된 논문들을 최대한 시간 순서대로 오래된 논문부터 차근차근 하나씩 꾸준히 리뷰해 나가도록 하겠습니다.</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Computer-Vision/" rel="tag">Computer Vision</a></li></ul>
+
+      
+        
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'sunghwan-kim';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
+
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/09/15/Getting-to-know-about-Kubernetes/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Getting to know about Kubernetes
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/08/20/If-you-need-a-blog-for-writing-how-about-Hexo/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">If you need a blog for writing, how about Hexo?</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Deep-Learning-applications-in-Computer-Vision"><span class="nav-number">1.</span> <span class="nav-text">Deep Learning applications in Computer Vision</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Image-Classification"><span class="nav-number">1.1.</span> <span class="nav-text">1. Image Classification</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Object-Detection"><span class="nav-number">1.2.</span> <span class="nav-text">2. Object Detection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Image-Segmentation"><span class="nav-number">1.3.</span> <span class="nav-text">3. Image Segmentation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Object-Tracking"><span class="nav-number">1.4.</span> <span class="nav-text">4. Object Tracking</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Pose-Estimation"><span class="nav-number">1.5.</span> <span class="nav-text">5. Pose Estimation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Image-with-GAN"><span class="nav-number">1.6.</span> <span class="nav-text">6. Image with GAN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-Image-Captioning"><span class="nav-number">1.7.</span> <span class="nav-text">7. Image Captioning</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2021 Sunghwan&#39;s blog All Rights Reserved.
+        
+      </div>
+      <div class="site-credit">
+        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+    
+</script>
+    
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/bootstrap.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

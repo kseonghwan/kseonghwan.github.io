@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Deep Learning in Computer Vision | Sunghwan&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="Computer Vision" />
+  
+  
+  
+  
+  <meta name="description" content="Deep Learning applications in Computer Vision많은 분들이 아시다시피 아주 간단한 이미지 분류(Classification)부터, 이미지 생성(GAN)에 이르기까지, Vision과 관련되어 사용되는 딥러닝 기술들은 정말 다양합니다.다양한 기술들이 있지만, Computer Vision에 사용되는 딥러닝 기술들을 크게 9가지로">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Deep Learning in Computer Vision">
+<meta property="og:url" content="http://kseonghwan.github.io/2021/12/10/Zombie-process-caused-by-training-a-DL-model/index.html">
+<meta property="og:site_name" content="Sunghwan&#39;s blog">
+<meta property="og:description" content="Deep Learning applications in Computer Vision많은 분들이 아시다시피 아주 간단한 이미지 분류(Classification)부터, 이미지 생성(GAN)에 이르기까지, Vision과 관련되어 사용되는 딥러닝 기술들은 정말 다양합니다.다양한 기술들이 있지만, Computer Vision에 사용되는 딥러닝 기술들을 크게 9가지로">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-12-10T14:31:55.000Z">
+<meta property="article:modified_time" content="2021-12-13T14:36:52.235Z">
+<meta property="article:author" content="Sunghwan Kim">
+<meta property="article:tag" content="Computer Vision">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Sunghwan&#39;s blog" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+    
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+<script src="/js/jquery-3.1.1.min.js"></script>
+
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+  <link rel="stylesheet" href="/css/fashion.css" >
+  <link rel="stylesheet" href="/css/glyphs.css" >
+
+<meta name="generator" content="Hexo 5.0.2"></head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="Sunghwan&#39;s blog" rel="home"> Sunghwan&#39;s blog </a>
+            
+          </h1>
+          
+          
+            <div class="site-description">From Data Analytics to Personal Stories</div>
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/">Home</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/archives">Archives</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/categories">Categories</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/tags">Tags</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/about">About</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-Zombie-process-caused-by-training-a-DL-model" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Deep Learning in Computer Vision
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2021/12/10/Zombie-process-caused-by-training-a-DL-model/" class="article-date">
+	  <time datetime="2021-12-10T14:31:55.000Z" itemprop="datePublished">December 10, 2021</time>
+	</a>
+
+       
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Deep-Learning-applications-in-Computer-Vision"><a href="#Deep-Learning-applications-in-Computer-Vision" class="headerlink" title="Deep Learning applications in Computer Vision"></a>Deep Learning applications in Computer Vision</h2><p>많은 분들이 아시다시피 아주 간단한 이미지 분류(Classification)부터, 이미지 생성(GAN)에 이르기까지, Vision과 관련되어 사용되는 딥러닝 기술들은 정말 다양합니다.<br>다양한 기술들이 있지만, Computer Vision에 사용되는 딥러닝 기술들을 크게 9가지로 나누고, 각 주제에 해당하는 대표적인 논문들을 한 편씩 돌아가면서 소개하고자 합니다. 🙂 이번 포스팅에서는 앞으로 살펴볼 각각의 기술들에 대해 간단히 살펴보도록 하겠습니다.</p>
+<p><strong>실제로는 종료 되었는데도 계속 남아있는 프로세스</strong><br>Zombie process는 실제로는 종료된 프로세스이지만, Process Table에 여전히 남아있는 프로세스입니다. 이러한 Zombie process는 Defunct process라고도 부릅니다.</p>
+<p><strong>Zombie process가 생성되는 이유</strong><br>일반적으로 프로세스는 부모 프로세스가 자식 프로세스를 실행하고, 자식 프로세스가 종료되어 부모 프로세스로부터 wait system call(e.g. waitpid)이 호출되면 Process table로부터 제거됩니다. 또한, 자식 프로세스의 실행이 종료된 이후에 부모 프로세스가 종료되면, 부모 프로세스와 함께 Process Table로부터 제거됩니다.</p>
+<p>하지만 반대로, 부모 프로세스가 자식 프로세스보다 먼저 종료되는 경우 혹은 부모 프로세스가 자식 프로세스의 종료 처리 역할을 제대로 하지 못하는 경우 Zombie process가 생성됩니다.</p>
+<p><strong>Zombie process가 문제가 되는 이유</strong><br>이렇게 Defunct process가 된 process는 같은 일부 시스템 리소스를 차지하게 됩니다. 그로인해 리소스의 용량이 꽉 차게 되면 더 이상 프로세스를 실행할 수 없는 상황이 발생할 수 있습니다. </p>
+<p><strong>딥러닝 프로젝트에서의 좀비프로세스 원인</strong><br>금번 프로젝트에서는 pytorch 1.6을 사용하는 패키지를 사용했습니다. 그러나 프로젝트에서 사용하는 GPU서버가 pytorch 1.7이상 부터만 지원하기 때문에 문제가 발생했습니다. 이렇듯 딥러닝 프로젝트에서는 사용하려는 패키지와 실제 설치 되어있는 패키지 간 dependancy에 대해서도 정확히 고민해야합니다.</p>
+<h2 id="좀비-프로세스를-파악하는-방법"><a href="#좀비-프로세스를-파악하는-방법" class="headerlink" title="좀비 프로세스를 파악하는 방법"></a>좀비 프로세스를 파악하는 방법</h2><p>GPU 상에서 top 명령어를 통해 좀비 프로세스의 수, 좀비 프로세스를 확인할 수 있습니다. </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@sunghwan ~]<span class="comment"># top</span></span><br><span class="line">top - 22:01:31 up 97 days, 17:08,  1 user,  load average: 0.00, 0.00, 0.00</span><br><span class="line">Tasks: 118 total,   3 running, 114 sleeping,   0 stopped,   1 zombie</span><br><span class="line">Cpu(s):  0.0%us,  0.0%sy,  0.0%ni,100.0%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st</span><br><span class="line">Mem:   1048576k total,   990160k used,    58416k free,   180060k buffers</span><br><span class="line">Swap:  2031608k total,    48520k used,  1983088k free,   203936k cached</span><br><span class="line"></span><br><span class="line">  PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND</span><br><span class="line">    1 root      15   0 10368  544  512 S  0.0  0.1   0:00.12 init</span><br><span class="line">    2 root      RT  -5     0    0    0 Z  0.0  0.0   0:03.16 migration/0</span><br><span class="line">    3 root      34  19     0    0    0 S  0.0  0.0   0:00.00 ksoftirqd/0</span><br><span class="line">    4 root      RT  -5     0    0    0 S  0.0  0.0   0:00.00 watchdog/0</span><br></pre></td></tr></table></figure>
+
+<p>두번째줄 마지막에 1 zombie를 통해 Zombie process의 개수를 확인 가능합니다. 프로세스 목록 중 두번째 S(Status)가 Z로 표시된 프로세스 확인을 하는 것도 또한 방법이다.</p>
+<p>또한 아래와 같은 명령어를 통해 간단히 개수만 확인할 수도 있습니다.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">top -b -n 1 | grep zombie</span><br></pre></td></tr></table></figure>
+
+<h2 id="좀비-프로세스를-제거하는-방법"><a href="#좀비-프로세스를-제거하는-방법" class="headerlink" title="좀비 프로세스를 제거하는 방법"></a>좀비 프로세스를 제거하는 방법</h2><p>아래의 명령어를 사용하면 일괄적으로 좀비프로세스를 죽일 수 있습니다.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep defunct | awk <span class="string">&#x27;&#123;print $3&#125;&#x27;</span> | xargs <span class="built_in">kill</span> -9</span><br></pre></td></tr></table></figure>
+
+<p>다만 kubernetes가 관리하는 container의 경우 kubernetes가 container의 상태를 모니터링하고 다시 컨테이너를 실행하는 경우가 있으므로 실제로 container를 삭제한 후 zombie process를 확인해보면 더 확실합니다.</p>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Computer-Vision/" rel="tag">Computer Vision</a></li></ul>
+
+      
+        
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'sunghwan-kim';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
+
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2021/10/21/Getting-to-know-about-Elasticsearch/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Getting to know about Elasticsearch</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Deep-Learning-applications-in-Computer-Vision"><span class="nav-number">1.</span> <span class="nav-text">Deep Learning applications in Computer Vision</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EC%A2%80%EB%B9%84-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%EB%A5%BC-%ED%8C%8C%EC%95%85%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95"><span class="nav-number">2.</span> <span class="nav-text">좀비 프로세스를 파악하는 방법</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EC%A2%80%EB%B9%84-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%EB%A5%BC-%EC%A0%9C%EA%B1%B0%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95"><span class="nav-number">3.</span> <span class="nav-text">좀비 프로세스를 제거하는 방법</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2021 Sunghwan&#39;s blog All Rights Reserved.
+        
+      </div>
+      <div class="site-credit">
+        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+    
+</script>
+    
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/bootstrap.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

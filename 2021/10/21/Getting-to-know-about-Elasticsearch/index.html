@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Getting to know about Elasticsearch | Sunghwan&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="Elasticsearch" />
+  
+  
+  
+  
+  <meta name="description" content="금번 프로젝트에서 사용하는 검색엔진은 Elasticsearch 입니다. 2016년 무렵부터 Elasticsearch가 검색엔진 랭킹에서 1위를 차지할만큼 검색엔진 분야에서 지배적인 위치에 있기도 합니다. 이번 포스팅에서는 기본 개념과 특징에 대해서 알아보겠습니다. What is Elasticsearch?Elasticsearch vs RDB개발자들이 흔히 아">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Getting to know about Elasticsearch">
+<meta property="og:url" content="http://kseonghwan.github.io/2021/10/21/Getting-to-know-about-Elasticsearch/index.html">
+<meta property="og:site_name" content="Sunghwan&#39;s blog">
+<meta property="og:description" content="금번 프로젝트에서 사용하는 검색엔진은 Elasticsearch 입니다. 2016년 무렵부터 Elasticsearch가 검색엔진 랭킹에서 1위를 차지할만큼 검색엔진 분야에서 지배적인 위치에 있기도 합니다. 이번 포스팅에서는 기본 개념과 특징에 대해서 알아보겠습니다. What is Elasticsearch?Elasticsearch vs RDB개발자들이 흔히 아">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://kseonghwan.github.io/img/es-rdbms.png">
+<meta property="og:image" content="http://kseonghwan.github.io/img/es-rdbms.png">
+<meta property="article:published_time" content="2021-10-21T11:11:34.000Z">
+<meta property="article:modified_time" content="2021-12-12T15:12:08.857Z">
+<meta property="article:author" content="Sunghwan Kim">
+<meta property="article:tag" content="Elasticsearch">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://kseonghwan.github.io/img/es-rdbms.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Sunghwan&#39;s blog" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+    
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+<script src="/js/jquery-3.1.1.min.js"></script>
+
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+  <link rel="stylesheet" href="/css/fashion.css" >
+  <link rel="stylesheet" href="/css/glyphs.css" >
+
+<meta name="generator" content="Hexo 5.0.2"></head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="Sunghwan&#39;s blog" rel="home"> Sunghwan&#39;s blog </a>
+            
+          </h1>
+          
+          
+            <div class="site-description">From Data Analytics to Personal Stories</div>
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/">Home</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/archives">Archives</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/categories">Categories</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/tags">Tags</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/about">About</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-Getting-to-know-about-Elasticsearch" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Getting to know about Elasticsearch
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2021/10/21/Getting-to-know-about-Elasticsearch/" class="article-date">
+	  <time datetime="2021-10-21T11:11:34.000Z" itemprop="datePublished">October 21, 2021</time>
+	</a>
+
+       
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>금번 프로젝트에서 사용하는 검색엔진은 Elasticsearch 입니다. 2016년 무렵부터 Elasticsearch가 검색엔진 랭킹에서 1위를 차지할만큼 검색엔진 분야에서 지배적인 위치에 있기도 합니다. 이번 포스팅에서는 기본 개념과 특징에 대해서 알아보겠습니다.</p>
+<h2 id="What-is-Elasticsearch"><a href="#What-is-Elasticsearch" class="headerlink" title="What is Elasticsearch?"></a>What is Elasticsearch?</h2><h3 id="Elasticsearch-vs-RDB"><a href="#Elasticsearch-vs-RDB" class="headerlink" title="Elasticsearch vs RDB"></a>Elasticsearch vs RDB</h3><p>개발자들이 흔히 아는 Relational Database와의 비교를 통해서 Elasticsearch의 개념을 조금 더 파악해보고자 합니다.</p>
+<p>엘라스틱의 활용 사례가 늘어나면서 기존 DBMS를 엘라스틱으로 마이그레이션 하는 사례가 늘어나고 있습니다. 가장 큰 이유는 <strong>데이터의 저장 방식</strong> 때문입니다.</p>
+<p>일반적으로 RDB는 행을 기반으로 데이터를 저장합니다. 그에 반해 엘라스틱서치는 단어를 기반으로(역인덱스, Inverted Index) 저장합니다. 이로 인한 장단점은 아래와 같습니다.<br>RDB는 데이터 수정·삭제의 편의성과 속도 면에서 강점이 있지만 다양한 조건의 데이터를 검색하고 집계하는 데에는 구조적인 한계가 있습니다. 예를 들어, RDMBS에서 ‘word’라는 단어가 db에 있는지 검색을 하려고 한다면 모든 row에 ‘word’라는 단어가 있는지를 검색하려고 하기에 비효율적입니다.</p>
+<p>반면에 단어 기반으로 데이터를 저장하는 엘라스틱서치는 특정 단어가 어디에 저장되어 있는지 이미 알고 있어 모든 도큐먼트를 검색할 필요가 없습니다. row 기반 저장 구조와는 달리 단어가 저장된 row를 알고 있기 때문에 도큐먼트 개수와 상관없이 한 번의 조회로 검색을 끝낼 수 있습니다.</p>
+<p>다만 이러한 특징 때문에 수정과 삭제는 엘라스틱서치 내부적으로 굉장히 많은 리소스가 소요되는 작업입니다. 이것이 엘라스틱서치가 RDBMS를 완전히 대체할 수 없는 중요한 이유 중 하나입니다. 따라서 데이터 특성상 수정과 삭제가 많은 경우와 그렇지 않은 경우를 잘 구분해서 어떤 검색 엔진을 사용할지 선택해야합니다.</p>
+<h3 id="용어-비교"><a href="#용어-비교" class="headerlink" title="용어 비교"></a>용어 비교</h3><p>다음은 Elasticsearch와 RDB의 용어를 비교한 표이다.<br><img src="/img/es-rdbms.png" alt="용어 비교"></p>
+<p>또한, ElasticSearch는 REST API를 사용하기에 용어들이 REST API와 유사합니다. 이를 관계형 데이터베이스와 비교하여 나타내면 아래과 같습니다.<br><img src="/img/es-rdbms.png" alt="용어 비교2"></p>
+<h2 id="Elasticsearch-문법"><a href="#Elasticsearch-문법" class="headerlink" title="Elasticsearch 문법"></a>Elasticsearch 문법</h2><h3 id="인덱스-입력-조회-및-삭제-GET-PUT-DELETE"><a href="#인덱스-입력-조회-및-삭제-GET-PUT-DELETE" class="headerlink" title="인덱스 입력, 조회 및 삭제 (GET, PUT, DELETE)"></a>인덱스 입력, 조회 및 삭제 (GET, PUT, DELETE)</h3><p><strong>1. 인덱스 조회</strong><br>GET 명령어를 활용하고 ip address와 index 이름을 아래와 같이 넣어준다.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ GET http://ip-address/index-name</span><br></pre></td></tr></table></figure>
+
+<p><strong>2. 인덱스 생성</strong><br>PUT 명령어를 활용하고 ip address와 index 이름을 아래와 같이 넣어준다.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ PUT http://ip-address/index-name</span><br></pre></td></tr></table></figure>
+
+<p><strong>3. 인덱스 삭제</strong><br>DELETE 명령어를 활용하고 ip address와 index 이름을 아래와 같이 넣어준다.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ DELETE http://ip-address/index-name</span><br></pre></td></tr></table></figure>
+
+<h3 id="데이터-조회-쿼리-만들기"><a href="#데이터-조회-쿼리-만들기" class="headerlink" title="데이터 조회 쿼리 만들기"></a>데이터 조회 쿼리 만들기</h3><p>엘라스틱 서치에서의 데이터 조회는 json 포맷으로 query를 만들어서 검색하는 Query DSL을 사용합니다.</p>
+<p><strong>match_all</strong><br>match_all 쿼리는 지정된 index의 모든 데이터 즉, 특별한 검색어 없이 모든 document를 가져오고 싶을 때 사용합니다.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;  </span><br><span class="line">   <span class="string">&quot;query&quot;</span>:&#123;  </span><br><span class="line">      <span class="string">&quot;match_all&quot;</span>:&#123;&#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>match</strong><br>match 쿼리는 기본 필드 검색 쿼리로써, 텍스트/숫자/날짜를 허용합니다. 아래는 title이라는 필드에 keyword라는 용어가 있는 모든 document를 조회하는 예제입니다.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;  </span><br><span class="line"></span><br><span class="line">   <span class="string">&quot;query&quot;</span>:&#123;  </span><br><span class="line">      <span class="string">&quot;match&quot;</span>:&#123;  </span><br><span class="line">         <span class="string">&quot;title&quot;</span>:<span class="string">&quot;keyword&quot;</span></span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>bool</strong><br>bool 쿼리는 bool( true / false ) 로직을 사용하는 쿼리이며, 그 종류는 다음과 같습니다.</p>
+<ul>
+<li>must : bool must 절에 지정된 모든 쿼리가 일치하는 document를 조회</li>
+<li>should : bool should 절에 지정된 모든 쿼리 중 하나라도 일치하는 document를 조회</li>
+<li>must_not : bool must_not 절에 지정된 모든 쿼리가 모두 일치하지 않는 document를 조회</li>
+<li>filter : must와 같이 filter 절에 지정된 모든 쿼리가 일치하는 document를 조회하지만, Filter context에서 실행되기 때문에 score를 무시합니다. </li>
+</ul>
+<p>아래는 나이가 40세이지만, Seoul 지역에 살고 있지 않은 document를 조회하는 예제입니다.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">  <span class="string">&quot;query&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;bool&quot;</span>: &#123;</span><br><span class="line">      <span class="string">&quot;must&quot;</span>: [</span><br><span class="line">        &#123; <span class="string">&quot;match&quot;</span>: &#123; <span class="string">&quot;age&quot;</span>: <span class="string">&quot;40&quot;</span> &#125; &#125;</span><br><span class="line">      ],</span><br><span class="line">      <span class="string">&quot;must_not&quot;</span>: [</span><br><span class="line">        &#123; <span class="string">&quot;match&quot;</span>: &#123; <span class="string">&quot;region&quot;</span>: <span class="string">&quot;Seoul&quot;</span> &#125; &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>아래는 filter를 활용해서 날짜가 2021-10-20부터 2021-10-22일 사이의 document를 조회하는 쿼리입니다.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;query&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;bool&quot;</span>: &#123;</span><br><span class="line">      <span class="string">&quot;must&quot;</span>: &#123; <span class="string">&quot;match_all&quot;</span>: &#123;&#125; &#125;,</span><br><span class="line">      <span class="string">&quot;filter&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;range&quot;</span>: &#123;</span><br><span class="line">          <span class="string">&quot;date&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;from&quot;</span>: <span class="string">&#x27;2021-10-20&#x27;</span>,</span><br><span class="line">            <span class="string">&quot;to&quot;</span>: <span class="string">&#x27;2021-10-22&#x27;</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Elasticsearch/" rel="tag">Elasticsearch</a></li></ul>
+
+      
+        
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'sunghwan-kim';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
+
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/12/10/Zombie-process-caused-by-training-a-DL-model/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Deep Learning in Computer Vision
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/09/20/How-to-create-a-Docker-image-and-run-a-container/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">How to create a Docker image and run a container</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-Elasticsearch"><span class="nav-number">1.</span> <span class="nav-text">What is Elasticsearch?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Elasticsearch-vs-RDB"><span class="nav-number">1.1.</span> <span class="nav-text">Elasticsearch vs RDB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%9A%A9%EC%96%B4-%EB%B9%84%EA%B5%90"><span class="nav-number">1.2.</span> <span class="nav-text">용어 비교</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Elasticsearch-%EB%AC%B8%EB%B2%95"><span class="nav-number">2.</span> <span class="nav-text">Elasticsearch 문법</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%9D%B8%EB%8D%B1%EC%8A%A4-%EC%9E%85%EB%A0%A5-%EC%A1%B0%ED%9A%8C-%EB%B0%8F-%EC%82%AD%EC%A0%9C-GET-PUT-DELETE"><span class="nav-number">2.1.</span> <span class="nav-text">인덱스 입력, 조회 및 삭제 (GET, PUT, DELETE)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A1%B0%ED%9A%8C-%EC%BF%BC%EB%A6%AC-%EB%A7%8C%EB%93%A4%EA%B8%B0"><span class="nav-number">2.2.</span> <span class="nav-text">데이터 조회 쿼리 만들기</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2021 Sunghwan&#39;s blog All Rights Reserved.
+        
+      </div>
+      <div class="site-credit">
+        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+    
+</script>
+    
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/bootstrap.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>
